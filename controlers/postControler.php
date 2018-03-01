@@ -1,15 +1,17 @@
-<?php 
-  $letters = getUnserializedLetters($_POST['serializedLetters']);
+<?php
+  if(!isset($_COOKIE['pendu'])){
+      die("Les cookies ne sont pas acceptés");
+  }
+  extract(decode(($_COOKIE['pendu'])));
   $triedLetter = $_POST['triedLetter'];
-  $triedLetters = $_POST['triedLetters'];
-   $wordIndex = $_POST['wordIndex'];
-   $trials = $_POST['trials'];
-   $replacementString = $_POST['replacementString'];
+//  $triedLetters = $_POST['triedLetters'];
+//   $wordIndex = $_POST['wordIndex'];
+//   $trials = $_POST['trials'];
+//   $replacementString = $_POST['replacementString'];
 
 $wordFound = false;
 
   $triedLetters .= $triedLetter;
-  $letters[$triedLetter] = false;
   $word = getWord($words, $wordIndex);
   $wordLength = strlen($word);
   $letterFound = false;
@@ -30,4 +32,5 @@ $wordFound = false;
 
   $remainingTrials = MAX_TRIALS-$trials;	
 
-  $serializedLetters = getSerializedLetters($letters);
+
+  setcookie( "pendu", encode(compact("triedLetters","wordIndex", "trials", "replacementString", "letters")));

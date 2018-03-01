@@ -31,14 +31,14 @@ return  [
 ];
 }
 
-	function getUnserializedLetters($serializedLetters){
+	function decode($datas){
 
-		return unserialize(urldecode($serializedLetters));
+		return json_decode(base64_decode($datas), true);
 	}
 
-	function getSerializedLetters($lettersArray){
+	function encode($datas){
 
-		return urlencode(serialize($lettersArray));
+		return base64_encode(json_encode($datas));
 	}
 
 	function getWordsArray(){
